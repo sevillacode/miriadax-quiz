@@ -2,9 +2,9 @@ var models = require('../models/models.js');
 
 // GET quizes/question
 exports.question = function(req, res){
-	models.Quiz.findAll({ where: ["id > ?", 0] }).then(function(quiz){
-		console.log(quiz);
-		res.render('quizes/question', {pregunta: quiz[0].pregunta});
+	models.Quiz.findAll().then(function(quiz){
+		//console.log(quiz);
+		res.render('quizes/question', {pregunta: quiz});
 	});
 };
 
