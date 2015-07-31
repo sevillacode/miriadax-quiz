@@ -1,11 +1,16 @@
 var models = require('../models/models.js');
 
+// conexion de la base de datos
+
+
 // GET quizes/question
 exports.question = function(req, res){
-	
-	models.Quiz.findAll().then(function(quiz){
+	var provide = function(){
+		return models.Quiz.findAll();
+	}
+	provide().then(function(quiz){
 		//console.log(quiz);
-		//process.stdout.write('quiz es: '+typeof(quiz));
+		process.stdout.write("DEBUG: quiz es: "+typeof(quiz)+"\n");
 		
 		process.stdout.write("=============INI===============\n");
 		for (var propiedad in quiz){

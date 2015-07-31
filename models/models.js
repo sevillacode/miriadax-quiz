@@ -15,8 +15,8 @@ var host = (url[4] || null);
 var storage = process.env.DATABASE_STORAGE;
 
 
-process.stdout.write("DEBUG: URL DATABASE: "+DATABASE_URL+"\n");
-process.stdout.write("DEBUG: STORAGE: "+DATABASE_STORAGE+"\n");
+process.stdout.write("DEBUG: URL DATABASE: "+process.env.DATABASE_URL+"\n");
+process.stdout.write("DEBUG: STORAGE: "+process.env.DATABASE_STORAGE+"\n");
 
 // carga modelo ORM
 var Sequelize = require('sequelize');
