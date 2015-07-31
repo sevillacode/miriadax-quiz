@@ -4,7 +4,7 @@ var models = require('../models/models.js');
 exports.question = function(req, res){
 	models.Quiz.findAll().then(function(quiz){
 		//console.log(quiz);
-		process.stdout.write('quiz es: '+quiz);
+		process.stdout.write('quiz es: '+typeof(quiz));
 		res.render('quizes/question', {pregunta: quiz.pregunta});
 	});
 };
