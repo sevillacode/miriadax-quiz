@@ -36,19 +36,20 @@ process.stdout.write("DEBUG: sequelize ahora está conectado\n");
 
 // importa la definicion de la tabla Quiz en quiz.js
 var Quiz = sequelize.import(path.join(__dirname, 'quiz'));
+process.stdout.write("DEBUG: Quiz ahora está importado\n");
 
 // exporta la definicion de la tabla quiz
 exports.Quiz = Quiz;
 
 
-process.stdout.write("DEBUG: Quiz ahora está conectado y exportado\n");
+process.stdout.write("DEBUG: Quiz ahora está exportado\n");
 
 process.stdout.write("DEBUG: Inicia la sincronizacion\n");
 // sequelize.sync() crea e inicializa la tabla en la BD
 sequelize.sync().then(function(){
 	process.stdout.write("DEBUG: sequelize ahora está sincronizado, supuestamente la tabla está creada\n");
 	// then(..) ejecuta el manejador una vez creada la tabla
-	Quiz.count.then(function(count){
+	Quiz.count().then(function(count){
 		process.stdout.write("DEBUG: Count: "+count+"\n");
 		// la tabla se inicia solo si esta vacia
 		if(count === 0){
