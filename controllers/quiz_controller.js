@@ -4,8 +4,16 @@ var models = require('../models/models.js');
 exports.question = function(req, res){
 	models.Quiz.findAll().then(function(quiz){
 		//console.log(quiz);
-		process.stdout.write('quiz es: '+typeof(quiz));
-		res.render('quizes/question', {pregunta: quiz.pregunta});
+		//process.stdout.write('quiz es: '+typeof(quiz));
+		
+		process.stdout.write("=============INI===============\n");
+		for (var propiedad in quiz){
+			process.stdout.write("DEBUG: "+propiedad+" : "+quiz[propiedad]+"\n");
+		}
+		process.stdout.write("=============FIN===============\n");
+		
+		
+		res.render('quizes/question', {pregunta: quiz[0].pregunta});
 	});
 };
 
