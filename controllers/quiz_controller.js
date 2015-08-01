@@ -9,16 +9,6 @@ exports.question = function(req, res){
 		return models.Quiz.findAll();
 	}
 	provide().then(function(quiz){
-		//console.log(quiz);
-		process.stdout.write("DEBUG: quiz es: "+typeof(quiz)+"\n");
-		
-		process.stdout.write("=============INI===============\n");
-		for (var propiedad in quiz){
-			process.stdout.write("DEBUG: "+propiedad+" : "+quiz[propiedad]+"\n");
-		}
-		process.stdout.write("=============FIN===============\n");
-		
-		
 		res.render('quizes/question', {pregunta: quiz[0].pregunta});
 	});
 };

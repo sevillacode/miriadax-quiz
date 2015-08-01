@@ -15,13 +15,11 @@ var host = (url[4] || null);
 var storage = process.env.DATABASE_STORAGE;
 
 
-process.stdout.write("DEBUG: URL DATABASE: "+process.env.DATABASE_URL+"\n");
-process.stdout.write("DEBUG: STORAGE: "+process.env.DATABASE_STORAGE+"\n");
 
 // carga modelo ORM
 var Sequelize = require('sequelize');
 
-// usa BD sqlite
+// usa BD
 var sequelize = new Sequelize(DB_name, user, pwd, { 
 													dialect: dialect,  
 													protocol: protocol, 
@@ -32,28 +30,19 @@ var sequelize = new Sequelize(DB_name, user, pwd, {
 													});
 
 
-process.stdout.write("DEBUG: sequelize ahora está conectado\n");
-
 // importa la definicion de la tabla Quiz en quiz.js
 var Quiz = sequelize.import(path.join(__dirname, 'quiz'));
-process.stdout.write("DEBUG: Quiz ahora está importado\n");
 
 // exporta la definicion de la tabla quiz
 exports.Quiz = Quiz;
 
 
-process.stdout.write("DEBUG: Quiz ahora está exportado\n");
-
-process.stdout.write("DEBUG: Inicia la sincronizacion\n");
 // sequelize.sync() crea e inicializa la tabla en la BD
 sequelize.sync().then(function(){
-	process.stdout.write("DEBUG: sequelize ahora está sincronizado, supuestamente la tabla está creada\n");
 	// then(..) ejecuta el manejador una vez creada la tabla
 	Quiz.count().then(function(count){
-		process.stdout.write("DEBUG: Count: "+count+"\n");
 		// la tabla se inicia solo si esta vacia
 		if(count === 0){
-			process.stdout.write("DEBUG: Insertará los registros dado que está vacía\n");
 			Quiz.create({pregunta: 'Capital de Italia', respuesta: 'Roma'}).then(function(){ process.stdout.write("DEBUG: Base de datos actualizada\n") });
 		}
 	});
