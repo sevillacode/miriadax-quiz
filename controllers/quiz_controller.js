@@ -8,20 +8,21 @@ exports.index = function(req, res){
 
 // GET quizes/:id
 exports.show = function(req, res){
+	/*
 	process.stdout.write("=============INI===============\n");
 	for (var propiedad in req.params){
 		process.stdout.write("DEBUG: "+propiedad+" : "+req.params[propiedad]+"\n");
 	}
 	process.stdout.write("=============FIN===============\n");
-		
-	models.Quiz.find(req.params.quizId).then(function(quiz){
+	*/	
+	models.Quiz.findById(req.params.quizId).then(function(quiz){
 		res.render('quizes/show', {quiz: quiz});
 	});
 };
 
 // GET quizes/:id/answer
 exports.answer = function(req, res){
-	models.Quiz.find(req.params.quizId).then(function(quiz){
+	models.Quiz.findById(req.params.quizId).then(function(quiz){
 		if(req.query.respuesta === quiz.respuesta){
 			res.render('quizes/answer', {quiz: quiz, respuesta: 'Correcta'});
 		}else{
