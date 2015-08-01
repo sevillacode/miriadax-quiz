@@ -13,17 +13,25 @@ exports.load = function(req, res, next, quizId){
 	).catch( function(error){ next(error); } );
 }
 
-exports.index = function(req, res){
+exports.index = function(req, res, next){
+	process.stdout.write("DEBUG: entra en index para ver si muestra todos o filtra\n");
+	process.stdout.write("DEBUG: search es: "+req.query.search+"\n");
+		
 	if(req.query.search){
-		var listado = function(){
+		var listado = function(models,req){
 			return models.Quiz.findAll({ where: ["pregunta like %", req.query.search.replace(" ","%")]});
+			process.stdout.write("DEBUG: Filtra!\n");
 		}
 	}else{
-		var listado = function(){
+		var listado = function(models){
 			return models.Quiz.findAll();
+			process.stdout.write("DEBUG: No filtra\n");
 		}
 	}
+	
 	listado().then(function(quizes){
+		
+	process.stdout.write("DEBUG: quizes: ".quizes."\n");
 		res.render('quizes/index.ejs', {quizes: quizes});
 	}).catch(function(error){ next(error); });
 }
