@@ -16,13 +16,17 @@ exports.load = function(req, res, next, quizId){
 exports.index = function(req, res, next){
 	process.stdout.write("DEBUG: entra en index para ver si muestra todos o filtra\n");
 	process.stdout.write("DEBUG: search es: "+req.query.search+"\n");
+	process.stdout.write("DEBUG: search es: "+req.query.search.replace(" ","%")+"\n");
 	process.stdout.write("DEBUG: su tipo es: "+typeof(req.query.search)+"\n");
 	process.stdout.write("DEBUG: su longitud es: "+req.query.search.length+"\n");
 	
 	var filtro = '';	
 	if(typeof(req.query.search) != "undefined" && req.query.search.length > 0){
-			filtro = { where: ["pregunta like %", req.query.search.replace(" ","%")]};
-			process.stdout.write("DEBUG: Filtra!\n");
+		var busqueda = '%'+req.query.search.replace(" ","%");
+		//filtro = { where: ["pregunta like %", busqueda]};
+		
+		filtro = { where: ["pregunta like ?", busqueda]};
+		process.stdout.write("DEBUG: Filtra!\n");
 	}
 	
 	models.Quiz.findAll(filtro).then(function(quizes){
