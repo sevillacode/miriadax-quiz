@@ -31,7 +31,7 @@ exports.index = function(req, res, next){
 	
 	listado().then(function(quizes){
 		
-	process.stdout.write("DEBUG: quizes: ".quizes."\n");
+	process.stdout.write("DEBUG: quizes: "+quizes+"\n");
 		res.render('quizes/index.ejs', {quizes: quizes});
 	}).catch(function(error){ next(error); });
 }
