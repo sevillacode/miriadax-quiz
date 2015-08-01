@@ -42,7 +42,7 @@ sequelize.sync().then(function(){
 	// then(..) ejecuta el manejador una vez creada la tabla
 	Quiz.count().then(function(count){
 		// la tabla se inicia solo si esta vacia
-		// para borrar la bd en heroku recuerda: heroku pg:reset
+		// para borrar la bd en heroku recuerda: heroku pg:reset DATABASE o desde el dashboard de la bd ne heroku postgre
 		if(count === 0){
 			Quiz.create({pregunta: 'Capital de Portugal', respuesta: 'Lisboa'});
 			Quiz.create({pregunta: 'Capital de Italia', respuesta: 'Roma'}).then(function(){ process.stdout.write("DEBUG: Base de datos actualizada\n") });

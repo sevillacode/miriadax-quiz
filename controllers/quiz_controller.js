@@ -8,6 +8,12 @@ exports.index = function(req, res){
 
 // GET quizes/:id
 exports.show = function(req, res){
+	process.stdout.write("=============INI===============\n");
+	for (var propiedad in req.params){
+		process.stdout.write("DEBUG: "+propiedad+" : "+req.params[propiedad]+"\n");
+	}
+	process.stdout.write("=============FIN===============\n");
+		
 	models.Quiz.find(req.params.quizId).then(function(quiz){
 		res.render('quizes/show', {quiz: quiz});
 	});
