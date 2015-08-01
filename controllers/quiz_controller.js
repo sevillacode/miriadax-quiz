@@ -14,7 +14,7 @@ exports.load = function(req, res, next, quizId){
 }
 
 exports.index = function(req, res, next){
-	var filtro = '';	
+	var filtro = undefined;	
 	if(typeof(req.query.search) != "undefined" && req.query.search.length > 0){
 		var busqueda = '%'+req.query.search.replace(" ","%")+'%';
 		filtro = { where: ["pregunta like ?", busqueda]};
