@@ -25,6 +25,12 @@ exports.index = function(req, res, next){
 	}).catch(function(error){ next(error); });
 }
 
+// GET quizes/new
+exports.new = function(req, res){
+	var quiz = models.Quiz.build({pregunta: "Pregunta", respuesta: "Respuesta"});
+	res.render('quizes/new', {quiz: quiz});
+};
+
 // GET quizes/:id
 exports.show = function(req, res){
 	res.render('quizes/show', {quiz: req.quiz});
