@@ -44,7 +44,7 @@ sequelize.sync().then(function(){
 		// la tabla se inicia solo si esta vacia
 		// para borrar la bd en heroku recuerda: heroku pg:reset DATABASE o desde el dashboard de la bd ne heroku postgre
 		if(count === 0){
-			Quiz.create({pregunta: 'Año inicio timestamp unix', respuesta: '1970', tema: 'ciencia'}).then(function(){ process.stdout.write("DEBUG: Base de datos actualizada\n") });
+			Quiz.create({pregunta: 'Año inicio timestamp unix', respuesta: '1970', tema: 'Ciencia'}).then(function(){ process.stdout.write("DEBUG: Base de datos actualizada\n") });
 		}
 	});
 });
