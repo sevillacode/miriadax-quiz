@@ -17,7 +17,7 @@ exports.index = function(req, res, next){
 	var filtro = undefined;	
 	if(typeof(req.query.search) != "undefined" && req.query.search.length > 0){
 		var busqueda = '%'+req.query.search.replace(" ","%")+'%';
-		filtro = { where: ["pregunta like ?", busqueda], , order:"pregunta"};
+		filtro = { where: ["pregunta like ?", busqueda], order:"pregunta"};
 	}
 	
 	models.Quiz.findAll(filtro).then(function(quizes){
