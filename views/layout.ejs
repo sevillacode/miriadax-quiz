@@ -23,14 +23,14 @@
   	
   	<section class="main" id="s1">
   		<% if(errors.length){ %>
-  			<span id="errorMsgs">
+  			<p id="errorMsgs">
   				Corregir errores: <br>
   				<% for(var i in errors){ %>
   				<span><%= errors[i].message %></span><br>
   				<% } %>
-  			</span>
+  			</p>
   		<% } %>
-  		<div><%- body %></div>
+  		<%- body %>
   	</section>
   	
   	<footer class="main" id="f1">
