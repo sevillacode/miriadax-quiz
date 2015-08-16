@@ -7,7 +7,6 @@ var quizController = require('../controllers/quiz_controller.js');
 var commentController = require('../controllers/comment_controller.js');
 var sessionController = require('../controllers/session_controller.js');
 
-		process.stdout.write("DEBUG: controladores declarados"+"\n");
 /* GET home page. */
 router.get('/', function(req, res) {
   res.render('index', { title: 'Quiz', errors: [] });
@@ -36,5 +35,5 @@ router.get('/quizes/:quizId(\\d+)/comments/:commentId(\\d+)/publish', sessionCon
 
 router.get('/author', quizController.author);
 
-process.stdout.write("DEBUG:resto de rutas declaradas"+"\n");
+
 module.exports = router;
