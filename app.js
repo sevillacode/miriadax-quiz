@@ -10,6 +10,8 @@ var routes = require('./routes/index');
 
 var methodOverride = require('method-override');
 
+var session = require('express-session');
+
 var app = express();
 
 // view engine setup
@@ -23,9 +25,21 @@ app.use(partials());
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
-app.use(cookieParser());
+app.use(cookieParser('Quiz 2015')); // esta cadena es para encriptar la cookie de sesión
 app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')));
+
+// helpers dinámicos
+app.use(function(req, res, next){
+	// guardar path en session.redir para despues de login
+	if(req.path.match(/\/login|\/logout/)){
+		req.session.redir = req.path;
+	}
+	// hace visible req.session en las vistas
+	res.locals.session = req.session;
+	
+	next();
+});
 
 app.use('/', routes);
 
