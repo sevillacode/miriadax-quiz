@@ -10,7 +10,7 @@ exports.loginRequired = function(req, res, next){
 // GET /login - formulario
 exports.new = function(req, res){
 	var errors = req.session.errors || {};
-	//req.session.errors = {}; // se resetean los errores? apareció asi en una transparencia sin explicación previa
+	req.session.errors = {}; // se resetean los errores? apareció asi en una transparencia sin explicación previa
 	res.render('sessions/new', {errors: errors});
 }
 
