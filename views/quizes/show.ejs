@@ -8,6 +8,7 @@
 	<p><strong>Comentarios:</strong></p>
 	<% for(index in quiz.Comments){ 
 	for(i in quiz.Comments[index]){%><%= i+' - '+quiz.Comments[index]; %>
+	<%
 	}
 	%>
 		<% if(quiz.Comments[index].publicado || session.user){ %>
