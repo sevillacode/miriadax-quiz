@@ -28,10 +28,7 @@ app.use(bodyParser.urlencoded());
 app.use(cookieParser('Quiz 2015')); // esta cadena es para encriptar la cookie de sesión
 app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')));
-
-
-app.use('/', routes);
-
+app.use(session());
 
 // helpers dinámicos
 app.use(function(req, res, next){
@@ -45,6 +42,7 @@ app.use(function(req, res, next){
 	next();
 });
 
+app.use('/', routes);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
