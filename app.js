@@ -29,6 +29,10 @@ app.use(cookieParser('Quiz 2015')); // esta cadena es para encriptar la cookie d
 app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')));
 
+
+app.use('/', routes);
+
+
 // helpers dinámicos
 app.use(function(req, res, next){
 	// guardar path en session.redir para despues de login
@@ -41,7 +45,6 @@ app.use(function(req, res, next){
 	next();
 });
 
-app.use('/', routes);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
