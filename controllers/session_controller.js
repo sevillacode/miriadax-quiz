@@ -1,6 +1,16 @@
+// MW de accesos HTTP restringidas
+exports.loginRequired = function(req, res, next){
+	if(req.session.user){
+		next();
+	}else{
+		res.redirect('/login');
+	}
+}
+
 // GET /login - formulario
 exports.new = function(req, res){
 	var errors = req.session.errors || {};
+	req.session.errors = {}; // se resetean los errores? apareció asi en una transparencia sin explicación previa
 	res.render('sessions/new', {errors: errors});
 }
 
@@ -32,3 +42,4 @@ exports.destroy = function(req, res){
 	delete req.session.user;
 	res.redirect(req.session.redir.toString());
 }
+
