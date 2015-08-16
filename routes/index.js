@@ -14,7 +14,7 @@ router.get('/', function(req, res) {
 
 // autoload de comandos con quizId
 router.param('quizId', quizController.load);
-router.param('commentId', commentController.load);
+//router.param('commentId', commentController.load);
 
 router.get('/login', sessionController.new); // formulario login
 router.post('/login', sessionController.create); // crear
