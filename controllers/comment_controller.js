@@ -8,7 +8,13 @@ exports.load = function(req, res, next, commentId){
 		}
 	}).then(function(comment){
 		if(comment){
-			req.comment = comment;
+			
+		process.stdout.write("DEBUG: comment es: "+typeof(comment)+"\n");
+		process.stdout.write("DEBUG: comment es: "+comment+"\n");
+			req.comment = comment;		
+			process.stdout.write("DEBUG: req.comment es: "+typeof(req.comment)+"\n");
+			process.stdout.write("DEBUG: req.comment es: "+req.comment+"\n");
+
 			next();
 		}else{
 			next(new Error('No existe el comentario '+commentId));
