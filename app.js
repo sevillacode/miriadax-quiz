@@ -33,7 +33,7 @@ app.use(session());
 // helpers dinámicos
 app.use(function(req, res, next){
 	// guardar path en session.redir para despues de login
-	if(req.path.match(/\/login|\/logout/)){
+	if(!req.path.match(/\/login|\/logout/)){
 		req.session.redir = req.path;
 	}
 	// hace visible req.session en las vistas
