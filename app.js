@@ -32,15 +32,6 @@ app.use(session());
 
 // helpers dinámicos
 app.use(function(req, res, next){
-	
-	// guarda la fecha para el autologout
-	if(req.session){
-		if(typeof(req.session.lastCon) !== 'undefined' && (req.session.lastCon + 15) < Date.now()){
-			res.redirect('/logout');
-		}
-		req.session.lastCon = Date.now();
-	}
-	
 	// guardar path en session.redir para despues de login
 	if(!req.path.match(/\/login|\/logout/)){
 		req.session.redir = req.path;
