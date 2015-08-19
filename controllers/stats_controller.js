@@ -16,7 +16,7 @@ exports.show = function(req, res, next){
 		function(numQuizes){
 			stats.quizes = numQuizes;
 		}
-	).catch( function(error){ next(error); } );
+	);
 	
 	models.Comment.findAll().then(
 		function(comments){
@@ -25,7 +25,7 @@ exports.show = function(req, res, next){
 				(!comment.publicado) ? stats.waiting++ : stats.published++;
 			}
 		}
-	).catch( function(error){ next(error); } );
+	);
 	
 	stats.average = (stats.comments*100)/stats.quizes;
 	
