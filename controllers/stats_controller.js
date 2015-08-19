@@ -29,5 +29,5 @@ exports.show = function(req, res, next){
 	
 	stats.average = (stats.comments*100)/stats.quizes;
 	
-	res.render('stats.ejs', {stats: stats});
+	res.render('stats.ejs', {stats: stats, errors: {}});
 }
