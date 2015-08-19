@@ -36,6 +36,21 @@ app.use(function(req, res, next){
 	if(!req.path.match(/\/login|\/logout/)){
 		req.session.redir = req.path;
 	}
+	
+	// guarda la fecha para el autologout
+	if(req.session.user){
+		if(typeof(req.session.lastCon) !== 'undefined' && (Date.now() - req.session.lastCon) < 120000){
+			//delete req.session.user;
+			//delete req.session.lastCon;
+			//req.session.errors = [
+			//	{   'message': 'Su sesión ha expirado' }
+			//];
+			//res.redirect('/login');
+			sessionController.destroy;
+		}
+		req.session.lastCon = Date.now();
+	}
+	
 	// hace visible req.session en las vistas
 	res.locals.session = req.session;
 	
