@@ -34,7 +34,7 @@ app.use(session());
 app.use(function(req, res, next){
 	
 	// guarda la fecha para el autologout
-	if(req.session.user.length){
+	if(req.session){
 		if(typeof(req.session.lastCon) !== 'undefined' && (req.session.lastCon + 15) < Date.now()){
 			res.redirect('/logout');
 		}
