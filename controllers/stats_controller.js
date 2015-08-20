@@ -1,7 +1,7 @@
 var models = require('../models/models.js');
 
 // muestra las estadísticas
-exports.show = function(req, res, next){
+exports.show = function(req, res){
 	
 	// se inicia
 	var stats = {
@@ -11,23 +11,34 @@ exports.show = function(req, res, next){
 		published: 0,
 		average: 0
 	}
-
-	models.Quiz.count().then(
+	process.stdout.write("DEBUG: modelo iniciado, contando\n");
+	models.Quiz.findAll().count().then(
 		function(numQuizes){
+			process.stdout.write("DEBUG: ha contado: "+numQuizes+"\n");
 			stats.quizes = numQuizes;
+			process.stdout.write("DEBUG: stats.quizes: "+stats.quizes+"\n");
+			
 		}
 	);
 	
+	process.stdout.write("DEBUG: cuenta terminada, obteniendo comentarios\n");
 	models.Comment.findAll().then(
 		function(comments){
+			process.stdout.write("=============INI===============\n");
+			for (var propiedad in comments){
+				process.stdout.write("DEBUG: "+propiedad+" : "+comments[propiedad]+"\n");
+			}
+			process.stdout.write("=============FIN===============\n");
 			for(comment in comments){
 				stats.comments++;
 				(!comment.publicado) ? stats.waiting++ : stats.published++;
 			}
 		}
 	);
+	process.stdout.write("DEBUG: comentarios terminado, calculando media\n");
 	
 	stats.average = (stats.comments*100)/stats.quizes;
+	process.stdout.write("DEBUG: renderizando vista\n");
 	
 	res.render('stats.ejs', {stats: stats, errors: {}});
 }
