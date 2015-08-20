@@ -34,7 +34,7 @@ router.get('/quizes/:quizId(\\d+)/comments/new', commentController.new);
 router.post('/quizes/:quizId(\\d+)/comments', commentController.create);
 router.get('/quizes/:quizId(\\d+)/comments/:commentId(\\d+)/publish', sessionController.loginRequired, commentController.publish);
 
-router.get('/stats', statsController.show);
+router.get('/quizes/statistics', statsController.show);
 
 router.get('/author', quizController.author);
 
