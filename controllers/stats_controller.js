@@ -26,7 +26,7 @@ exports.show = function(req, res){
 					}
 					stats.waiting = esperando;
 					stats.published = publicado;
-					stats.comments = (esperando + publicado);
+					stats.comments = (Number(esperando) + Number(publicado));
 				}
 			)
 			.then(function(){
