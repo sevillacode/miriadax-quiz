@@ -18,15 +18,18 @@ exports.show = function(req, res){
 		}
 	).then(
 		function(){
-			models.Comment.findAll().then(
-				function(comments){
-					for(comment in comments){
-						stats.comments++;
-						(!comment.publicado) ? stats.waiting++ : stats.published++;
+			models.Comment.findAndCountAll().then(
+				function(result) {
+					stats.comments = result.count;
+					var esperando = 0, publicado = 0;
+					for(k in result.rows){
+						(!result.rows[k].publicado) ? esperando++ : publicado++;
 					}
-					
+					stats.waiting = esperando;
+					stats.published = publicado;
 				}
-			).then(function(){
+			)
+			.then(function(){
 			stats.average = (stats.comments*100)/stats.quizes;
 			res.render('stats.ejs', {stats: stats, errors: {}});
 			});
