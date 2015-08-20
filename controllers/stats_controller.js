@@ -23,17 +23,18 @@ exports.show = function(req, res){
 	);
 	
 	process.stdout.write("DEBUG: cuenta terminada, obteniendo comentarios\n");
-	models.Comment.findAll().then(
+	models.Comment.count().then(
 		function(comments){
-			process.stdout.write("=============INI===============\n");
-			for (var propiedad in comments){
-				process.stdout.write("DEBUG: "+propiedad+" : "+comments[propiedad]+"\n");
-			}
-			process.stdout.write("=============FIN===============\n");
-			for(comment in comments){
-				stats.comments++;
-				(!comment.publicado) ? stats.waiting++ : stats.published++;
-			}
+		process.stdout.write("DEBUG: cuenta de comentarios: "+comments+"\n");
+			//process.stdout.write("=============INI===============\n");
+			//for (var propiedad in comments){
+			//	process.stdout.write("DEBUG: "+propiedad+" : "+comments[propiedad]+"\n");
+			//}
+			//process.stdout.write("=============FIN===============\n");
+			//for(comment in comments){
+			//	stats.comments++;
+			//	(!comment.publicado) ? stats.waiting++ : stats.published++;
+			//}
 		}
 	);
 	process.stdout.write("DEBUG: comentarios terminado, calculando media\n");
