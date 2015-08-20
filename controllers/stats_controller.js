@@ -22,17 +22,22 @@ exports.show = function(req, res){
 		function(){
 			models.Comment.findAndCountAll().then(
 				function(result) {
-					var esperando = 0, publicado = 0, comentado = [];
+					var esperando = 0, publicado = 0, comentado = [], totalComentado = 0;
 					for(k in result.rows){
 						(!result.rows[k].publicado) ? esperando++ : publicado++;
-						process.stdout.write("DEBUG: "+result.rows[k].QuizId+"\n");
-						comentado[result.rows[k].QuizId] = 1;
+						if(typeof(comentado[result.rows[k].QuizId]) === 'undefined'){
+							comentado[result.rows[k].QuizId] = 1;
+						}
 					}
+					for(e in comentado){
+						totalComentado++;
+					}
+					
 					stats.waiting = esperando;
 					stats.published = publicado;
 					stats.comments = (Number(esperando) + Number(publicado));
-					stats.commented = Number(comentado.length);
-					stats.nonCommented = (stats.comments - stats.commented);
+					stats.commented = totalComentado;
+					stats.nonCommented = (stats.quizes - stats.commented);
 				}
 			)
 			.then(function(){
