@@ -12,10 +12,10 @@ exports.show = function(req, res){
 		average: 0
 	}
 	process.stdout.write("DEBUG: modelo iniciado, contando\n");
-	models.Quiz.findAll().count().then(
+	models.Quiz.findAll().then(
 		function(numQuizes){
-			process.stdout.write("DEBUG: ha contado: "+numQuizes+"\n");
-			stats.quizes = numQuizes;
+			process.stdout.write("DEBUG: ha contado: "+numQuizes.length+"\n");
+			stats.quizes = numQuizes.length;
 			process.stdout.write("DEBUG: stats.quizes: "+stats.quizes+"\n");
 			
 		}
