@@ -18,7 +18,7 @@ exports.show = function(req, res){
 			process.stdout.write("DEBUG: ha contado: "+numQuizes.length+"\n");
 			stats.quizes = numQuizes.length;
 			process.stdout.write("DEBUG: stats.quizes: "+stats.quizes+"\n");
-			
+			next();
 		}
 	);
 	
@@ -35,12 +35,14 @@ exports.show = function(req, res){
 			//	stats.comments++;
 			//	(!comment.publicado) ? stats.waiting++ : stats.published++;
 			//}
+			next();
 		}
-	);
+	).then(function(){
 	process.stdout.write("DEBUG: comentarios terminado, calculando media\n");
 	
 	stats.average = (stats.comments*100)/stats.quizes;
 	process.stdout.write("DEBUG: renderizando vista\n");
 	
 	res.render('stats.ejs', {stats: stats, errors: {}});
+	});
 }
