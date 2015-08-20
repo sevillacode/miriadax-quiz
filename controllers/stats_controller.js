@@ -1,16 +1,17 @@
 var models = require('../models/models.js');
 
+// se inicia
+var stats = {
+	quizes: 0,
+	comments: 0,
+	waiting: 0,
+	published: 0,
+	average: 0
+}
+
 // muestra las estadísticas
 exports.show = function(req, res){
 	
-	// se inicia
-	var stats = {
-		quizes: 0,
-		comments: 0,
-		waiting: 0,
-		published: 0,
-		average: 0
-	}
 	process.stdout.write("DEBUG: modelo iniciado, contando\n");
 	models.Quiz.findAll().then(
 		function(numQuizes){
