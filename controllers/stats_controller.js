@@ -12,37 +12,24 @@ var stats = {
 // muestra las estadísticas
 exports.show = function(req, res){
 	
-	process.stdout.write("DEBUG: modelo iniciado, contando\n");
 	models.Quiz.findAll().then(
 		function(numQuizes){
-			process.stdout.write("DEBUG: ha contado: "+numQuizes.length+"\n");
 			stats.quizes = numQuizes.length;
-			process.stdout.write("DEBUG: stats.quizes: "+stats.quizes+"\n");
-			next();
+		}
+	).then(
+		function(){
+			models.Comment.findAll().then(
+				function(comments){
+					for(comment in comments){
+						stats.comments++;
+						(!comment.publicado) ? stats.waiting++ : stats.published++;
+					}
+					
+				}
+			).then(function(){
+			stats.average = (stats.comments*100)/stats.quizes;
+			res.render('stats.ejs', {stats: stats, errors: {}});
+			});
 		}
 	);
-	
-	process.stdout.write("DEBUG: cuenta terminada, obteniendo comentarios\n");
-	models.Comment.count().then(
-		function(comments){
-		process.stdout.write("DEBUG: cuenta de comentarios: "+comments+"\n");
-			//process.stdout.write("=============INI===============\n");
-			//for (var propiedad in comments){
-			//	process.stdout.write("DEBUG: "+propiedad+" : "+comments[propiedad]+"\n");
-			//}
-			//process.stdout.write("=============FIN===============\n");
-			//for(comment in comments){
-			//	stats.comments++;
-			//	(!comment.publicado) ? stats.waiting++ : stats.published++;
-			//}
-			next();
-		}
-	).then(function(){
-	process.stdout.write("DEBUG: comentarios terminado, calculando media\n");
-	
-	stats.average = (stats.comments*100)/stats.quizes;
-	process.stdout.write("DEBUG: renderizando vista\n");
-	
-	res.render('stats.ejs', {stats: stats, errors: {}});
-	});
 }
