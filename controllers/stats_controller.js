@@ -25,8 +25,7 @@ exports.show = function(req, res){
 					var esperando = 0, publicado = 0, comentado = [];
 					for(k in result.rows){
 						(!result.rows[k].publicado) ? esperando++ : publicado++;
-						
-						process.stdout.write("DEBUG: "+result.rows[k].QuizId+\n");
+						//process.stdout.write("DEBUG: "+result.rows[k].QuizId+"\n");
 						comentado[result.rows[k].QuizId] = 1;
 					}
 					stats.waiting = esperando;
