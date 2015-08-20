@@ -18,16 +18,15 @@ exports.show = function(req, res){
 		}
 	).then(
 		function(){
-			models.Comment.findAll().then(
+			models.Comment.findAndCountAll().then(
 				function(result) {
-					var esperando = 0, publicado = 0, total = 0;
+					var esperando = 0, publicado = 0;
 					for(k in result.rows){
 						(!result.rows[k].publicado) ? esperando++ : publicado++;
-						total++;
 					}
 					stats.waiting = esperando;
 					stats.published = publicado;
-					stats.comments = total;
+					stats.comments = (esperando + publicado);
 				}
 			)
 			.then(function(){
